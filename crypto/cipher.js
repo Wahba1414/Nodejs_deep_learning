@@ -25,8 +25,10 @@ console.log(`encrypted: ${encypted}`);
 // Decryption.
 var decipher = crypto.createDecipheriv(algorithm, key, IV);
 
-var decrypted = decipher.update(encypted,'hex' , 'utf8');
+var decrypted = decipher.update(encypted, 'hex', 'utf8');
 decrypted += decipher.final('utf8');
 
 console.log(`decrypted: ${decrypted}`);
+
+
 

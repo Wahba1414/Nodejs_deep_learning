@@ -52,7 +52,8 @@ function getTotalNetpayForSomeCandidates(candidatesNos) {
 
   netpays.find({ _id: { $in: candidatesNos } }).toArray(function (err, docs) {
     if (!err) {
-      console.log(`Docs: ${JSON.stringify(docs)}`); //same results as aggregation example.
+      //same results as aggregation example, it updated automatically upon any related write operations
+      console.log(`Docs: ${JSON.stringify(docs)}`);
     } else {
       console.log(`Error: ${err}`);
     }

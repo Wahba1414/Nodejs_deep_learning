@@ -9,7 +9,7 @@ const url = 'mongodb://localhost:27017';
 
 // Create instance of MongoClient.
 // This option to use the new engine for monitor, etc. instead of the old deprecated one.
-var client = MongoClient(url, { useUnifiedTopology: true });
+var client = MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // connect.
 client.connect(function (error) {

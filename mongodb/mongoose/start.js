@@ -18,7 +18,7 @@ mongoose.connection.on('open', function () {
   console.log(`db is ready`);
 
   // Do some operations.
-  addNewKitten('Nono20', 130000);
+  addNewKitten('Nono30', 130);
 
   // findSpecificOne('NONO3');
 

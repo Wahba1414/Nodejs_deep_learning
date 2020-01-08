@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+
+  createdDate: Date,
+
   name: { type: String, uppercase: true, index: true, unique: true },
 
   age: {
     type: Number,
     // This validation can be provided by built-in min and max.
     validate: {
-      validator: function(v){
-        if(v > 1000){
+      validator: function (v) {
+        if (v > 1000) {
           return false;
         }
 
@@ -32,12 +35,24 @@ schema.query.findByName = function (name) {
 }
 
 // virtuals.
-schema.virtual('nameWithAge').get(function(){
+schema.virtual('nameWithAge').get(function () {
   return this.name + '-' + this.age;
 });
 
 // define default options for toObject, toJSON.
-schema.set('toJSON' , {virtuals: true});
-schema.set('toObject' , {virtuals: true});
+schema.set('toJSON', { virtuals: true });
+schema.set('toObject', { virtuals: true });
+
+
+// Add some pre and post hooks for save (document hooks)
+schema.pre('save', function (next) {
+  this.createdDate = new Date();
+
+  next();
+});
+
+schema.post('save', function (doc) {
+  console.log(`Post save: doc ID: ${doc._id}`);
+});
 
 module.exports = schema;

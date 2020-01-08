@@ -3,7 +3,21 @@ const mongoose = require('mongoose');
 var schema = new mongoose.Schema({
   name: { type: String, uppercase: true, index: true, unique: true },
 
-  age: Number
+  age: {
+    type: Number,
+    // This validation can be provided by built-in min and max.
+    validate: {
+      validator: function(v){
+        if(v > 1000){
+          return false;
+        }
+
+        return true; //otherwise.
+      },
+
+      message: () => 'This age is greater than 1000',
+    }
+  }
 });
 
 

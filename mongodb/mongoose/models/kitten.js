@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+// methods & hooks.
+const methods = require('../plugins/methods');
+const hooks = require('../plugins/hooks');
+
 var schema = new mongoose.Schema({
 
   createdDate: Date,
@@ -23,16 +27,11 @@ var schema = new mongoose.Schema({
   }
 });
 
+// methods.
+schema.plugin(methods);
 
-// you can add methods can be accessed through the instance from this schema.
-schema.methods.speak = function () {
-  console.log(`Hi, i am ${this.name}`);
-}
-
-// Add query functions.
-schema.query.findByName = function (name) {
-  return this.where({ name: name });
-}
+// hooks.
+schema.plugin(hooks);
 
 // virtuals.
 schema.virtual('nameWithAge').get(function () {
@@ -42,17 +41,5 @@ schema.virtual('nameWithAge').get(function () {
 // define default options for toObject, toJSON.
 schema.set('toJSON', { virtuals: true });
 schema.set('toObject', { virtuals: true });
-
-
-// Add some pre and post hooks for save (document hooks)
-schema.pre('save', function (next) {
-  this.createdDate = new Date();
-
-  next();
-});
-
-schema.post('save', function (doc) {
-  console.log(`Post save: doc ID: ${doc._id}`);
-});
 
 module.exports = schema;

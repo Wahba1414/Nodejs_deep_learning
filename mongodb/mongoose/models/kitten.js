@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const methods = require('../plugins/methods');
 const hooks = require('../plugins/hooks');
 
+const options = {
+  discriminatorKey: 'nationality',
+};
+
 var schema = new mongoose.Schema({
 
   createdDate: Date,
@@ -25,7 +29,7 @@ var schema = new mongoose.Schema({
       message: () => 'This age is greater than 1000',
     }
   }
-});
+}, options);
 
 // methods.
 schema.plugin(methods);

@@ -10,6 +10,7 @@ except for it connects directly to the db. (Not to the server first).
 const mongoose = require('mongoose');
 
 const KittenSchema = require('./models/kitten');
+const ForeignKittenSchema = require('./models/foreign_kitten');
 
 const url = 'mongodb://localhost:27017/test'; //notice the db name is added here.
 
@@ -18,10 +19,9 @@ mongoose.connection.on('open', function () {
   console.log(`db is ready`);
 
   // Do some operations.
-  addNewKitten('Nono31', 130);
+  addForeignKitten('Nono321', 130);
 
   // findSpecificOne('NONO3');
-
 });
 
 mongoose.connection.on('error', function (error) {
@@ -47,6 +47,25 @@ function addNewKitten(name, age) {
   }, function (error) {
     console.log(`Error happened: ${error}`);
   })
+
+}
+
+
+function addForeignKitten(name, age) {
+  // Discriminators.
+  // Kitten model.
+  var Kitten = mongoose.model('Kitten', KittenSchema);
+
+  var ForeignKitten = Kitten.discriminator('Foreign', ForeignKittenSchema);
+
+  var newKitten = new ForeignKitten({ name: name, age, isForeign: true });
+
+  newKitten.save().then(function (result) {
+    console.log(`results: ${result}`);
+  }, function (error) {
+    console.log(`Error happened: ${error}`);
+  });
+
 
 }
 

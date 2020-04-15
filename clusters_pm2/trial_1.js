@@ -4,7 +4,7 @@ const numCPUs = require('os').cpus().length;
 
 /*
 -Try the IPC forth and back.
--Different events and the lifecycle of the worker ---> connected first and then listening and others
+-Different events and the lifecycle of the worker ---> connected first and then listening, etc.
 */
 
 if (cluster.isMaster) {

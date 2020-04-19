@@ -3,6 +3,7 @@ The event loop will handle events as follows (priority-ordered):
 1-Sync. codes.
 2-nextTick callbacks.
 3-setTimeout/setIntervals callbacks.
+==> Polling (for any new changes or finished asyncronous tasks)
 4-OS-operations / pending operations call backs (http, fs, etc.)
 5-setImmediate callbacks.
 */
@@ -26,6 +27,7 @@ setImmediate(function () {
 counter++;
 console.log(`counter: ${counter}`);
 
+// This function will run after 'a' get initialized 'famous use case for it'
 process.nextTick(function () {
   console.log(`From inside nextTick, a = ${a}`);
 })

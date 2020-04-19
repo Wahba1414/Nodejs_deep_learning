@@ -13,7 +13,6 @@ if (cluster.isMaster) {
   // Fork workers.
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
-
   }
 
   cluster.on('exit', (worker, code, signal) => {
@@ -24,14 +23,14 @@ if (cluster.isMaster) {
   for (let id in cluster.workers) {
     // Add events.
 
+    // will start its life cycle with this state/event.
+    cluster.workers[id].on('online', function listeningHandler() {
+      console.log(`worker id ${id} is online now ...`);
+    });
+
     // for listening
     cluster.workers[id].on('listening', function listeningHandler() {
       console.log(`worker id ${id} is listening now ...`);
-    });
-
-
-    cluster.workers[id].on('online', function listeningHandler() {
-      console.log(`worker id ${id} is online now ...`);
     });
 
     // for messages.

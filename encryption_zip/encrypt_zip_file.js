@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-
 // Encryption - cipher.
 const crypto = require('crypto');
 
